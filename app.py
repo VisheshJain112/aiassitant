@@ -3,11 +3,18 @@ from flask import Flask, render_template, jsonify, request
 from gpt_index import SimpleDirectoryReader,GPTSimpleVectorIndex,LLMPredictor,PromptHelper
 from langchain import OpenAI
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access the environment variable
 
 app = Flask(__name__)
 
 # Environment variable
-os.environ["OPENAI_API_KEY"] = "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"
+openai_api_key = os.getenv("OPENAI_API_KEY")
+os.environ["OPENAI_API_KEY"] = openai_api_key
 
 def create_index(path):
     max_input = 4096
